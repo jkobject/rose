@@ -12,10 +12,6 @@ from collections import defaultdict
 
 import os
 
-from string import join,upper,maketrans
-
-
-
 #=====================================================================
 #====================MAPPING BAM READS TO GFF REGIONS=================
 #=====================================================================
@@ -192,7 +188,7 @@ def main():
 				bamFile = options.bam
 				fullPath = os.path.abspath(bamFile)
 				bamName = fullPath.split('/')[-1].split('.')[0]
-				pathFolder = join(fullPath.split('/')[0:-1],'/')
+				pathFolder = '/'.join(fullPath.split('/')[0:-1])
 				fileList = os.listdir(pathFolder)
 				hasBai = False
 				for fileName in fileList:

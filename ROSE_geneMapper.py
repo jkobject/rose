@@ -16,8 +16,6 @@ import ROSE_utils
 
 import os
 
-from string import upper,join
-
 from collections import defaultdict
 
 
@@ -150,14 +148,14 @@ def mapEnhancerToGene(annotFile,enhancerFile,transcribedFile='',uniqueGenes=True
         if noFormatTable:
 
             newEnhancerLine = list(line)
-            newEnhancerLine.append(join(ROSE_utils.uniquify([startDict[x]['name'] for x in overlappingGenes]),','))
-            newEnhancerLine.append(join(ROSE_utils.uniquify([startDict[x]['name'] for x in proximalGenes]),','))
+            newEnhancerLine.append(','.join(ROSE_utils.uniquify([startDict[x]['name'] for x in overlappingGenes])))
+            newEnhancerLine.append(','.join(ROSE_utils.uniquify([startDict[x]['name'] for x in proximalGenes])))
             newEnhancerLine.append(closestGene)
 
         else:
             newEnhancerLine = line[0:9]
-            newEnhancerLine.append(join(ROSE_utils.uniquify([startDict[x]['name'] for x in overlappingGenes]),','))
-            newEnhancerLine.append(join(ROSE_utils.uniquify([startDict[x]['name'] for x in proximalGenes]),','))
+            newEnhancerLine.append(','.join(ROSE_utils.uniquify([startDict[x]['name'] for x in overlappingGenes])))
+            newEnhancerLine.append(','.join(ROSE_utils.uniquify([startDict[x]['name'] for x in proximalGenes])))
             newEnhancerLine.append(closestGene)
             newEnhancerLine += line[-2:]
 
@@ -199,9 +197,9 @@ def mapEnhancerToGene(annotFile,enhancerFile,transcribedFile='',uniqueGenes=True
         proxEnhancers = geneDict['overlapping'][refID]+geneDict['proximal'][refID]
         
         superStatus = max(superDict[refID])
-        enhancerRanks = join([str(x) for x in rankDict[refID]],',')
+        enhancerRanks = ','.join([str(x) for x in rankDict[refID]])
     
-        newLine = [geneName,refID,join(proxEnhancers,','),enhancerRanks,superStatus]
+        newLine = [geneName,refID,','.join(proxEnhancers),enhancerRanks,superStatus]
         geneToEnhancerTable.append(newLine)
 
     #resort enhancerToGeneTable
@@ -264,7 +262,7 @@ def main():
     if options.out:
         outFolder = ROSE_utils.formatFolder(options.out,True)
     else:
-        outFolder = join(enhancerFile.split('/')[0:-1],'/') + '/'
+        outFolder = '/'.join(enhancerFile.split('/')[0:-1]) + '/'
 
 
     #GETTING THE GENOME
@@ -288,7 +286,7 @@ def main():
         'MM10':'%s/annotation/mm10_refseq.ucsc' % (cwd),
         }
 
-    annotFile = genomeDict[upper(genome)]
+    annotFile = genomeDict[genome.upper()]
 
     #GETTING THE TRANSCRIBED LIST
     if options.geneList:

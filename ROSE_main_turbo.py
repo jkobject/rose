@@ -17,8 +17,6 @@ import time
 
 import os
 
-from string import upper,join
-
 from collections import defaultdict
 
 #==================================================================
@@ -319,7 +317,7 @@ def main():
 				'MM10':'%s/annotation/mm10_refseq.ucsc' % (cwd),
 				}
 
-		annotFile = genomeDict[upper(genome)]
+		annotFile = genomeDict[genome.upper()]
 
 		#MAKING THE START DICT
 		print('MAKING START DICT')
